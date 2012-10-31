@@ -1,0 +1,58 @@
+benchmarking /Users/joshuachisholm/projects/routism/bench/all.pogo
+Please be patient.
+{ http_parser: '1.0',
+  node: '0.8.12',
+  v8: '3.11.10.22',
+  ares: '1.7.5-DEV',
+  uv: '0.8',
+  zlib: '1.2.3',
+  openssl: '1.0.0f' }
+Scores: (bigger is better)
+
+routism
+Raw:
+ > 261.2163509471585
+ > 266.9322709163347
+ > 266.20139581256234
+ > 267.19840478564305
+ > 267.4650698602794
+Average (mean) 265.8026984643956
+
+choreographer
+Raw:
+ > 13.245033112582782
+ > 13.245033112582782
+ > 13.34604385128694
+ > 13.20754716981132
+ > 13.333333333333334
+Average (mean) 13.27539811591943
+
+dispatch
+Raw:
+ > 4.616805170821792
+ > 4.638218923933209
+ > 4.646840148698884
+ > 4.642525533890437
+ > 4.659832246039143
+Average (mean) 4.6408444046766935
+
+barista
+Raw:
+ > 3.1446540880503147
+ > 3.2206119162640903
+ > 3.2206119162640903
+ > 3.2102728731942216
+ > 3.225806451612903
+Average (mean) 3.204391449077124
+
+Winner: routism
+Compared with next highest (choreographer), it's:
+95.01% faster
+20.02 times as fast
+1.3 order(s) of magnitude faster
+
+Compared with the slowest (barista), it's:
+98.79% faster
+82.95 times as fast
+1.92 order(s) of magnitude faster
+
