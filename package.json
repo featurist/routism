@@ -13,6 +13,7 @@
     "barista": "*",
     "bench": "*",
     "choreographer": "*",
-    "dispatch": "*"  
+    "dispatch": "*",
+    "should": "*" 
   }
 }

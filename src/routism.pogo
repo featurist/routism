@@ -1,50 +1,52 @@
-exports.create router (routes, separator: '/') =
+variable regex = r/(\:([a-z\-_]+))/g
+
+escape regex (pattern) = pattern.replace r/[-\/\\^$*+?.()|[\]{}]/g '\$&'
+
+exports.compile (route table) =
+  groups = []
+  regexen = []
+  for each @(row) in (route table)
+    add group for (row) to (groups)
+    regexen.push "(#(compile(row.pattern)))"
   
-  router = {
+  {
+    regex = new (RegExp ("^(#(regexen.join('|')))$"))
     
-    routes = []
+    groups = groups
     
-    add (route) =
-      self.routes.push(route)
-      route.path elements = []
-      parts = route.pattern.split (separator)
-      for each @(part) in (parts)
-        if (part.char at 0 == ':')
-          route.path elements.push { param = part.substr 1 }
-        else
-          route.path elements.push { text = part }
-    
-    recognise (path) =
-      parts = path.split (separator)
-      for each @(route) in (router.routes)
-        m = try routing (parts) to (route)
-        if (m)
-          return (m)
-      
-      false
+    recognise (input) =
+      recognise (self.regex.exec(input) || []) in (self.groups)
   }
-  
-  for each @(route) in (routes)
-    router.add (route)
-  
-  try routing (parts) to (route) =
-    path = []
-    params = {}
-    i = 0
-    for each @(element) in (route.path elements)
-      if (element.param)
-        path.push(params.(element.param) = parts.(i))
-      else
-        if ((element.text) && (element.text != parts.(i)))
-          break
-        else
-          path.push(element.text)
-  
-      i = i + 1
+
+add group for (row) to (groups) =
+  group = { route = row.route, params = [] }
+  groups.push (group)
+  add variables in (row.pattern) to (group)
+
+add variables in (pattern) to (group) =
+  while (match = variable regex.exec(pattern))
+    group.params.push (match.2)
+
+compile (pattern) =
+  escape regex (pattern).replace(variable regex, "([^\/]+)")
+
+recognise (match) in (groups) =
+  g = 0
+  for (i = 2, i < match.length, i = i + groups.(g - 1).params.length + 1)
+    if (typeof(match.(i)) != 'undefined')
+      return {
+        route = groups.(g).route
+        params = extract params for (groups.(g)) from (match) after (i)
+      }
     
-    if ((i == parts.length) && (i == route.path elements.length))
-      { params = params, route = route.route }
-    else
-      false
+    g = g + 1
   
-  router
+  false
+
+extract params for (group) from (match) after (i) =
+  params = []
+  for (p = 0, p < group.params.length, p = p + 1)
+    params.push [group.params.(p), match.(p + i + 1)]
+  
+  params
+

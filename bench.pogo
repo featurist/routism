@@ -25,8 +25,7 @@ routes = [
   { pattern = "/foo/:id/bar/:id", route = 'bar by id' }
 ]
 
-routism router = require('./src/routism').create router (routes)
-regexism router = require('./src/regexism').compile (routes)
+routism router = require('./src/routism').compile (routes)
 
 widget url = "http://foo.com/widgets/123"
 
@@ -35,7 +34,6 @@ res = { }
 
 exports.compare = {
   routism  () = routism router.recognise "/widgets/123"
-  regexism () = regexism router.recognise "/widgets/123"
   dispatch () = dispatch router (req, res, noop)
   barista  () = barista router.first('/widgets/123', 'GET')
   choreographer () = choreographer router(req, res, noop)

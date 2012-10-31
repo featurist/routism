@@ -1,4 +1,7 @@
-create router = require('../src/routism').create router
+routism = require '../src/routism'
+
+create router (route table) =
+  routism.compile (route table)
 
 describe 'routism'
   
@@ -10,6 +13,22 @@ describe 'routism'
   
   (router) should not recognise (path) =
     router.recognise(path).should.be.false
+    
+  it 'concatenates route patterns into a regexp with named groups'
+    router = create router [
+      { pattern = "/", route = 'home' }
+      { pattern = "/foo/bar", route = 'foo bar' }
+      { pattern = "/foo/:id", route = 'foo by id' }
+      { pattern = "/foo/:id/bar/:id", route = 'bar by id' }
+    ]
+    expected = r/^((\/)|(\/foo\/bar)|(\/foo\/([^\/]+))|(\/foo\/([^\/]+)\/bar\/([^\/]+)))$/
+    router.regex.to string().should.equal (expected.to string())
+    router.groups.should.eql [
+      { route = 'home',    params = [] }
+      { route = 'foo bar', params = [] }
+      { route = 'foo by id',  params = ['id'] }
+      { route = 'bar by id',  params = ['id', 'id'] }
+    ]
   
   it 'recognises /'
     router = create router [ { route = "home", pattern = "/" } ]
@@ -22,14 +41,14 @@ describe 'routism'
     router = create router [ { route = "widget", pattern = "/widgets/:id" } ]
     (router) should recognise '/widgets/123' as {
       route = 'widget'
-      params = { id = '123' }
+      params = [['id', '123']]
     }
     
   it 'recognises /events/:year/:month/:day'
     router = create router [ { route = "day", pattern = "/events/:year/:month/:day" } ]
     (router) should recognise '/events/2012/12/25' as {
       route = 'day'
-      params = { year = '2012', month = '12', day = '25' }
+      params = [['year', '2012'], ['month', '12'], ['day', '25']]
     }
 
   it 'recognises the first matching route'
@@ -39,7 +58,7 @@ describe 'routism'
     ]
     (router) should recognise '/route/66' as {
       route = 'foo'
-      params = { x = '66' }
+      params = [['x', '66']]
     }
   
   it 'recognises different routes'
@@ -69,11 +88,6 @@ describe 'routism'
     ]
     (router) should recognise '/foo' as { route = { id = "foo" }, params = { } }
     (router) should recognise '/bar' as { route = { id = "bar" }, params = { } }
-
-  it 'allows new routes to be added after the router is created'
-    router = create router []
-    router.add { route = "foo", pattern = "/foo" }
-    (router) should recognise '/foo' as { route = "foo", params = { } }
 
   it 'does not recognise an empty string'
     router = create router [ { route = "foo", pattern = "/foo/bar" } ]
