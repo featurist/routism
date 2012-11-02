@@ -16,6 +16,16 @@ exports.compile (route table) =
     
     recognise (input) =
       recognise (self.regex.exec(input) || []) in (self.groups)
+      
+    connectify () =
+      url = require 'url'
+      handle (req, res, next) =
+        path = url.parse(req.url).pathname
+        match = self.recognise(path)
+        if (match)
+          match.route(req, res, next, match.params)
+        else
+          next()
   }
 
 add group for (row) to (groups) =
