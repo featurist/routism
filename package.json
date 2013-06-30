@@ -1,21 +1,30 @@
 {
   "name": "routism",
-  "description": "A URL router",
-  "author": {
-    "name": "Josh Chisholm"
-  },
   "version": "0.0.1",
-  "repository": {
-    "type": "git",
-    "url": "http://github.com/featurist/routism.git"
+  "description": "A JavaScript router",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
   },
   "devDependencies": {
-    "barista": "*",
-    "bench": "*",
-    "choreographer": "*",
-    "dispatch": "*",
-    "request": "*",
-    "connect": "*",
-    "should": "*" 
-  }
+    "pogo": "~0.4.3",
+    "barista": "~0.0.8",
+    "choreographer": "~0.3.0",
+    "connect": "~2.6.1",
+    "dispatch": "~0.2.0",
+    "bench": "~0.3.4",
+    "request": "~2.11.4",
+    "should": "~1.2.0"
+  },
+  "scripts": {
+    "test": "mocha spec/*_spec.pogo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/featurist/routism.git"
+  },
+  "author": "",
+  "license": "BSD"
 }
