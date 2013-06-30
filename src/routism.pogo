@@ -42,20 +42,20 @@ compile (pattern) =
 
 recognise (match) in (groups) =
     g = 0
-    for (i = 2, i < match.length, i = i + groups.(g - 1).params.length + 1)
+    for (i = 2, i < match.length, i := i + groups.(g - 1).params.length + 1)
         if (typeof(match.(i)) != 'undefined')
             return {
                 route = groups.(g).route
                 params = extract params for (groups.(g)) from (match) after (i)
             }
         
-        g = g + 1
+        g := g + 1
     
     false
 
 extract params for (group) from (match) after (i) =
     params = []
-    for (p = 0, p < group.params.length, p = p + 1)
+    for (p = 0, p < group.params.length, p := p + 1)
         params.push [group.params.(p), match.(p + i + 1)]
     
     params
