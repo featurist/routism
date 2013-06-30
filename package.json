@@ -2,7 +2,7 @@
   "name": "routism",
   "version": "0.0.1",
   "description": "A JavaScript router",
-  "main": "index.js",
+  "main": "src/routism.js",
   "directories": {
     "test": "test"
   },
