@@ -25,7 +25,7 @@ A mimialist and fast JavaScript router
 
     routism = require 'routism'
     connect = require 'connect'
-
+    
     routes = [
         { pattern = "/hello/world", route = @(req, res) @{ res.end 'hello' } }
         { pattern = "/params/:foo", route = @(req, res, next, params) @{ res.end (params.foo) } }
