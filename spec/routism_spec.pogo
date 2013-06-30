@@ -25,9 +25,9 @@ describe 'routism'
         router.regex.to string().should.equal (expected.to string())
         router.groups.should.eql [
             { route = 'home',        params = [] }
-            { route = 'foo bar', params = [] }
-            { route = 'foo by id',    params = ['id'] }
-            { route = 'bar by id',    params = ['id', 'id'] }
+            { route = 'foo bar',     params = [] }
+            { route = 'foo by id',   params = ['id'] }
+            { route = 'bar by id',   params = ['id', 'id'] }
         ]
     
     it 'recognises /'

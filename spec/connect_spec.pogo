@@ -2,9 +2,6 @@ routism = require '../src/routism'
 connect = require 'connect'
 request = require 'request'
 
-create router (route table) =
-    routism.compile (route table)
-
 say (what) =
     respond (req, res) =
         res.end (what)
@@ -16,10 +13,10 @@ echo param (n) =
 describe 'routism, wired up to connect'
     
     before @(done)
-        connect router = create router([
+        connect router = routism.compile [
             { pattern = "/hello/world", route = say "hello" }
             { pattern = "/params/:foo", route = echo param 0 }
-        ]).connectify()
+        ].connectify()
         app = connect()
         app.use (connect router)
         app.listen 80012
