@@ -6,7 +6,7 @@ exports.create router (routes) =
     for each @(route) in (routes)
         obj.(route.pattern.replace(r/:[^\/+]/, '*')) = noop
     
-    router = router (obj)    
+    router := router (obj)    
     
     recognise (path) =
         req = { url = path, method = 'GET' }
