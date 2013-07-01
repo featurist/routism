@@ -1,6 +1,6 @@
 # Routism
 
-A mimialist and fast JavaScript router
+A minimalist and fast JavaScript router
 
 ### Install
 
