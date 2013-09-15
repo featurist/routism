@@ -2,21 +2,33 @@ variable regex = r/(\:([a-z\-_]+))/g
 
 escape regex (pattern) = pattern.replace r/[-\/\\^$*+?.()|[\]{}]/g '\$&'
 
+exports.table () =
+    rows = []
+    {
+        add (pattern, route) =
+            rows.push {
+                pattern = pattern
+                route = route
+            }
+
+        compile () = exports.compile (rows)
+    }
+
 exports.compile (route table) =
     groups = []
     regexen = []
     for each @(row) in (route table)
         add group for (row) to (groups)
         regexen.push "(#(compile(row.pattern)))"
-    
+
     {
         regex = new (RegExp ("^(#(regexen.join('|')))$"))
-        
+
         groups = groups
-        
+
         recognise (input) =
             recognise (self.regex.exec(input) || []) in (self.groups)
-            
+
         connectify () =
             url = require 'url'
             handle (req, res, next) =
@@ -48,15 +60,15 @@ recognise (match) in (groups) =
                 route = groups.(g).route
                 params = extract params for (groups.(g)) from (match) after (i)
             }
-        
+
         g := g + 1
-    
+
     false
 
 extract params for (group) from (match) after (i) =
     params = []
     for (p = 0, p < group.params.length, p := p + 1)
         params.push [group.params.(p), match.(p + i + 1)]
-    
+
     params
 

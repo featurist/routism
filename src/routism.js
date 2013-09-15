@@ -5,6 +5,24 @@
     escapeRegex = function(pattern) {
         return pattern.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
     };
+    exports.table = function() {
+        var self = this;
+        var rows;
+        rows = [];
+        return {
+            add: function(pattern, route) {
+                var self = this;
+                return rows.push({
+                    pattern: pattern,
+                    route: route
+                });
+            },
+            compile: function() {
+                var self = this;
+                return exports.compile(rows);
+            }
+        };
+    };
     exports.compile = function(routeTable) {
         var self = this;
         var groups, regexen, gen1_items, gen2_i, row;

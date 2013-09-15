@@ -4,16 +4,16 @@ create router (route table) =
     routism.compile (route table)
 
 describe 'routism'
-    
+
     (router) should recognise (path) as (expected) =
         match = router.recognise(path)
         match.should.not.eql(false, "path '#(path)' was unrecognised")
         match.route.should.eql(expected.route)
         match.params.should.eql(expected.params)
-    
+
     (router) should not recognise (path) =
         router.recognise(path).should.be.false
-        
+
     it 'concatenates route patterns into a regexp with named groups'
         router = create router [
             { pattern = "/", route = 'home' }
@@ -29,21 +29,21 @@ describe 'routism'
             { route = 'foo by id',   params = ['id'] }
             { route = 'bar by id',   params = ['id', 'id'] }
         ]
-    
+
     it 'recognises /'
         router = create router [ { route = "home", pattern = "/" } ]
         (router) should recognise '/' as {
             route = 'home'
-            params = { }
+            params = []
         }
-    
+
     it 'recognises /widgets/:id'
         router = create router [ { route = "widget", pattern = "/widgets/:id" } ]
         (router) should recognise '/widgets/123' as {
             route = 'widget'
             params = [['id', '123']]
         }
-        
+
     it 'recognises /events/:year/:month/:day'
         router = create router [ { route = "day", pattern = "/events/:year/:month/:day" } ]
         (router) should recognise '/events/2012/12/25' as {
@@ -60,15 +60,15 @@ describe 'routism'
             route = 'foo'
             params = [['x', '66']]
         }
-    
+
     it 'recognises different routes'
         router = create router [
             { route = "foo", pattern = "/foo" }
             { route = "bar", pattern = "/bar" }
         ]
-        (router) should recognise '/foo' as { route = 'foo', params = { } }
-        (router) should recognise '/bar' as { route = 'bar', params = { } }
-        
+        (router) should recognise '/foo' as { route = 'foo', params = [] }
+        (router) should recognise '/bar' as { route = 'bar', params = [] }
+
     it 'can create more than one router'
         foo = create router [
             { route = "foo", pattern = "/foo" }
@@ -76,18 +76,18 @@ describe 'routism'
         bar = create router [
             { route = "bar", pattern = "/bar" }
         ]
-        (foo) should recognise '/foo' as { route = 'foo', params = { } }
-        (bar) should recognise '/bar' as { route = 'bar', params = { } }
+        (foo) should recognise '/foo' as { route = 'foo', params = [] }
+        (bar) should recognise '/bar' as { route = 'bar', params = [] }
         (foo) should not recognise '/bar'
         (bar) should not recognise '/foo'
-    
+
     it 'allows an arbitrary object to be associated with the route'
         router = create router [
             { route = { id = "foo" }, pattern = "/foo" }
             { route = { id = "bar" }, pattern = "/bar" }
         ]
-        (router) should recognise '/foo' as { route = { id = "foo" }, params = { } }
-        (router) should recognise '/bar' as { route = { id = "bar" }, params = { } }
+        (router) should recognise '/foo' as { route = { id = "foo" }, params = [] }
+        (router) should recognise '/bar' as { route = { id = "bar" }, params = [] }
 
     it 'does not recognise an empty string'
         router = create router [ { route = "foo", pattern = "/foo/bar" } ]
@@ -104,3 +104,11 @@ describe 'routism'
     it 'returns false when no route is recognised'
         router = create router [ ]
         router.recognise('/unrecognised').should.be.false
+
+    it 'provides an interface for building a route table'
+        table = routism.table()
+        table.add '/foo' 'foo'
+        table.add '/bar/:baz' 'bar'
+        router = table.compile()
+        (router) should recognise '/foo' as { route = 'foo', params = [] }
+        (router) should recognise '/bar/zz' as { route = 'bar', params = [['baz', 'zz']] }
