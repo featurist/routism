@@ -14,7 +14,7 @@ routes = [
     { pattern = "/i/see", route = 'm' }
 ]
 
-router names = ['choreographer', 'dispatch', 'express', 'barista', 'routism']
+router names = [ 'barista', 'choreographer', 'dispatch', 'express', 'page', 'routism']
 
 exports.compare = {}
 
