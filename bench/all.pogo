@@ -14,7 +14,7 @@ routes = [
     { pattern = "/i/see", route = 'm' }
 ]
 
-router names = ['choreographer', 'dispatch', 'barista', 'routism']
+router names = ['choreographer', 'dispatch', 'express', 'barista', 'routism']
 
 exports.compare = {}
 
@@ -33,5 +33,5 @@ define comparison (router, name) =
 for each @(name) in (router names)
     router = require("./#(name)").create router (routes)
     define comparison (router, name)
-    
+
 require("bench").run main()
