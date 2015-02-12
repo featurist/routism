@@ -1,6 +1,6 @@
 {
   "name": "routism",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A JavaScript router",
   "main": "src/routism.js",
   "directories": {

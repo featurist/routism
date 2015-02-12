@@ -50,7 +50,10 @@ add variables in (pattern) to (group) =
     group.params.push (match.2)
 
 compile (pattern) =
-  escape regex (pattern).replace(variable regex, "([^\/]+)")
+  if (pattern.(pattern.length - 1) == '*')
+    escape regex (pattern.substring(0, pattern.length - 1)).replace(variable regex, "(.+)")
+  else
+    escape regex (pattern).replace(variable regex, "([^\/]+)")
 
 recognise (match) in (groups) =
   g = 0

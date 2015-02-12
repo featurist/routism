@@ -11,15 +11,17 @@ A minimalist and fast JavaScript router
     routism = require 'routism'
 
     routes = [
-        { pattern = "/",           route = 'home' }
-        { pattern = "/posts",      route = 'list posts' }
-        { pattern = "/posts/:id",  route = 'show post' }
+        { pattern = "/",              route = 'home' }
+        { pattern = "/posts",         route = 'list posts' }
+        { pattern = "/posts/:id",     route = 'show post' }
+        { pattern = "/stuff/:path*",  route = 'show stuff' }
     ]
     router = routism.compile (routes)
 
-    router.recognise('/')           // { route = 'home', params = {} }
-    router.recognise('/posts')      // { route = 'list posts', params = {} }
-    router.recognise('/posts/123')  // { route = 'show post', params = [['id', '123']] }
+    router.recognise('/')             // { route = 'home', params = {} }
+    router.recognise('/posts')        // { route = 'list posts', params = {} }
+    router.recognise('/posts/123')    // { route = 'show post', params = [['id', '123']] }
+    router.recognise('/stuff/1/2/3')  // { route = 'show post', params = [['path', '1/2/3']] }
 
 ### Builder
 

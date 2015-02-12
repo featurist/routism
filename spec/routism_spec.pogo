@@ -101,6 +101,14 @@ describe 'routism'
         router = create router [ { route = "foo", pattern = "/foo" } ]
         (router) should not recognise '/foo/bar'
 
+    it 'recognises a path with slashes when the pattern ends with a *'
+        router = create router [ { route = "foo", pattern = "/:splat*" } ]
+        (router) should recognise '/hi/there' as { route = 'foo', params = [['splat', 'hi/there']] }
+
+    it 'recognises a path without slashes when the pattern ends with a *'
+        router = create router [ { route = "foo", pattern = "/:splat*" } ]
+        (router) should recognise '/hello' as { route = 'foo', params = [['splat', 'hello']] }
+
     it 'returns false when no route is recognised'
         router = create router [ ]
         router.recognise('/unrecognised').should.be.false

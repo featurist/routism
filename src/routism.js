@@ -75,7 +75,11 @@
         return void 0;
     };
     compile = function(pattern) {
-        return escapeRegex(pattern).replace(variableRegex, "([^\\/]+)");
+        if (pattern[pattern.length - 1] === "*") {
+            return escapeRegex(pattern.substring(0, pattern.length - 1)).replace(variableRegex, "(.+)");
+        } else {
+            return escapeRegex(pattern).replace(variableRegex, "([^\\/]+)");
+        }
     };
     recogniseIn = function(match, groups) {
         var g, i, gen3_forResult;
