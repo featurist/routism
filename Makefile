@@ -5,7 +5,7 @@ publish : js
 	npm publish
 
 mocha :
-	mocha spec/*_spec.pogo
+	./node_modules/mocha/bin/mocha spec/*_spec.pogo
 
 test : mocha
 

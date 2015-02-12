@@ -8,16 +8,16 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "barista": "~0.0.8",
-    "bench": "~0.3.4",
+    "barista": "~0.4.0",
+    "bench": "~0.3.5",
     "choreographer": "~0.3.0",
-    "connect": "~2.6.1",
-    "dispatch": "~0.2.0",
-    "express": "~3.4.0",
+    "connect": "~3.3.4",
+    "dispatch": "~1.0.0",
+    "express": "~4.11.2",
     "mocha": "^2.1.0",
-    "pogo": "~0.4.3",
-    "request": "~2.11.4",
-    "should": "~1.2.0"
+    "pogo": "~0.9.10",
+    "request": "~2.53.0",
+    "should": "~5.0.0"
   },
   "scripts": {
     "test": "mocha spec/*_spec.pogo"
