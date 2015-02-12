@@ -6,16 +6,16 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-    "pogo": "~0.4.3",
     "barista": "~0.0.8",
+    "bench": "~0.3.4",
     "choreographer": "~0.3.0",
     "connect": "~2.6.1",
     "dispatch": "~0.2.0",
     "express": "~3.4.0",
-    "bench": "~0.3.4",
+    "mocha": "^2.1.0",
+    "pogo": "~0.4.3",
     "request": "~2.11.4",
     "should": "~1.2.0"
   },
