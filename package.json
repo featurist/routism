@@ -20,7 +20,7 @@
     "should": "~5.0.0"
   },
   "scripts": {
-    "test": "mocha spec/*_spec.pogo"
+    "test": "./node_modules/pogo/bin/pogo -c src/routism.pogo && mocha spec/*_spec.pogo"
   },
   "repository": {
     "type": "git",
