@@ -20,8 +20,8 @@ A minimalist and fast JavaScript router
 
     router.recognise('/')             // { route = 'home', params = {} }
     router.recognise('/posts')        // { route = 'list posts', params = {} }
-    router.recognise('/posts/123')    // { route = 'show post', params = [['id', '123']] }
-    router.recognise('/stuff/1/2/3')  // { route = 'show post', params = [['path', '1/2/3']] }
+    router.recognise('/posts/123')    // { route = 'show post',  params = [['id', '123']] }
+    router.recognise('/stuff/1/2/3')  // { route = 'show stuff', params = [['path', '1/2/3']] }
 
 ### Builder
 
