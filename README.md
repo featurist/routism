@@ -39,16 +39,7 @@ A minimalist and fast JavaScript router
 
 ### Connect
 
-    routism = require 'routism'
-    connect = require 'connect'
-
-    routes = [
-        { pattern = "/hello/world", route = @(req, res) @{ res.end 'hello' } }
-        { pattern = "/params/:foo", route = @(req, res, next, params) @{ res.end (params.foo) } }
-    ]
-    app = connect()
-    app.use (routism.compile (routes).connectify())
-    app.listen 1337
+See the [specs](./spec/connect_spec.pogo)
 
 ### License
 

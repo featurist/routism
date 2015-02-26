@@ -40,21 +40,6 @@
             recognise: function(input) {
                 var self = this;
                 return recogniseIn(self.regex.exec(input) || [], self.groups);
-            },
-            connectify: function() {
-                var self = this;
-                var url, handle;
-                url = require("url");
-                return handle = function(req, res, next) {
-                    var path, match;
-                    path = url.parse(req.url).pathname;
-                    match = self.recognise(path);
-                    if (match) {
-                        return match.route(req, res, next, match.params);
-                    } else {
-                        return next();
-                    }
-                };
             }
         };
     };
