@@ -1,4 +1,4 @@
-variable regex = r/(\:([a-z\-_]+))/g
+variable regex = r/(\:([a-z\-_]+))/ig
 
 escape regex (pattern) = pattern.replace r/[-\/\\^$*+?.()|[\]{}]/g '\$&'
 

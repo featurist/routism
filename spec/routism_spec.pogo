@@ -37,11 +37,11 @@ describe 'routism'
             params = []
         }
 
-    it 'recognises /widgets/:id'
-        router = create router [ { route = "widget", pattern = "/widgets/:id" } ]
+    it 'recognises /widgets/:widgetId'
+        router = create router [ { route = "widget", pattern = "/widgets/:widgetId" } ]
         (router) should recognise '/widgets/123' as {
             route = 'widget'
-            params = [['id', '123']]
+            params = [['widgetId', '123']]
         }
 
     it 'recognises /events/:year/:month/:day'

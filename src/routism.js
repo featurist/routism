@@ -1,7 +1,7 @@
 (function() {
     var self = this;
     var variableRegex, escapeRegex, addGroupForTo, addVariablesInTo, compile, recogniseIn, extractParamsForFromAfter;
-    variableRegex = /(\:([a-z\-_]+))/g;
+    variableRegex = /(\:([a-z\-_]+))/gi;
     escapeRegex = function(pattern) {
         return pattern.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
     };
