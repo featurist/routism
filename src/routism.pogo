@@ -1,4 +1,5 @@
 variable regex = r/(\:([a-z\-_]+))/ig
+splat variable regex = r/(\:([a-z\-_]+)\\\*)/ig
 
 escape regex (pattern) = pattern.replace r/[-\/\\^$*+?.()|[\]{}]/g '\$&'
 
@@ -40,10 +41,7 @@ add variables in (pattern) to (group) =
     group.params.push (match.2)
 
 compile (pattern) =
-  if (pattern.(pattern.length - 1) == '*')
-    escape regex (pattern.substring(0, pattern.length - 1)).replace(variable regex, "(.+)")
-  else
-    escape regex (pattern).replace(variable regex, "([^\/]+)")
+  escape regex (pattern).replace (splat variable regex, "(.+)").replace(variable regex, "([^\/]+)")
 
 recognise (match) in (groups) =
   g = 0

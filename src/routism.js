@@ -1,7 +1,8 @@
 (function() {
     var self = this;
-    var variableRegex, escapeRegex, addGroupForTo, addVariablesInTo, compile, recogniseIn, extractParamsForFromAfter;
+    var variableRegex, splatVariableRegex, escapeRegex, addGroupForTo, addVariablesInTo, compile, recogniseIn, extractParamsForFromAfter;
     variableRegex = /(\:([a-z\-_]+))/gi;
+    splatVariableRegex = /(\:([a-z\-_]+)\\\*)/gi;
     escapeRegex = function(pattern) {
         return pattern.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
     };
@@ -60,11 +61,7 @@
         return void 0;
     };
     compile = function(pattern) {
-        if (pattern[pattern.length - 1] === "*") {
-            return escapeRegex(pattern.substring(0, pattern.length - 1)).replace(variableRegex, "(.+)");
-        } else {
-            return escapeRegex(pattern).replace(variableRegex, "([^\\/]+)");
-        }
+        return escapeRegex(pattern).replace(splatVariableRegex, "(.+)").replace(variableRegex, "([^\\/]+)");
     };
     recogniseIn = function(match, groups) {
         var g, i, gen3_forResult;

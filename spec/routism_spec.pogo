@@ -109,6 +109,10 @@ describe 'routism'
         router = create router [ { route = "foo", pattern = "/:splat*" } ]
         (router) should recognise '/hello' as { route = 'foo', params = [['splat', 'hello']] }
 
+    it 'recognises a normal and splat groups'
+        router = create router [ { route = "foo", pattern = "/page/:id/:splat*" } ]
+        (router) should recognise '/page/5/hi/there' as { route = 'foo', params = [['id', '5'], ['splat', 'hi/there']] }
+
     it 'returns false when no route is recognised'
         router = create router [ ]
         router.recognise('/unrecognised').should.be.false
