@@ -87,7 +87,7 @@
         var params, p;
         params = [];
         for (p = 0; p < group.params.length; p = p + 1) {
-            params.push([ group.params[p], match[p + i + 1] ]);
+            params.push([ group.params[p], decodeURIComponent(match[p + i + 1]) ]);
         }
         return params;
     };

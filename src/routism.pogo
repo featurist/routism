@@ -41,7 +41,9 @@ add variables in (pattern) to (group) =
     group.params.push (match.2)
 
 compile (pattern) =
-  escape regex (pattern).replace (splat variable regex, "(.+)").replace(variable regex, "([^\/]+)")
+  escape regex (pattern) \
+  .replace (splat variable regex, "(.+)") \
+  .replace (variable regex, "([^\/]+)")
 
 recognise (match) in (groups) =
   g = 0
@@ -59,6 +61,6 @@ recognise (match) in (groups) =
 extract params for (group) from (match) after (i) =
   params = []
   for (p = 0, p < group.params.length, p := p + 1)
-    params.push [group.params.(p), match.(p + i + 1)]
+    params.push [group.params.(p), decodeURIComponent(match.(p + i + 1))]
 
   params
