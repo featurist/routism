@@ -41,6 +41,14 @@ router.recognise('/posts')      // { route = 'list posts', params = [] }
 router.recognise('/posts/123')  // { route = 'show post', params = [['id', '123']] }
 ```
 
+### Compile Pattern
+
+```PogoScript
+routism = require 'routism'
+matchesSubpath = new (RegExp ("^#(routism.compilePattern '/posts/:id')"))
+matchesSubpath.test '/posts/blah/comments' // true
+```
+
 ### Connect
 
 See the [specs](./spec/connect_spec.pogo)

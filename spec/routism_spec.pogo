@@ -131,3 +131,12 @@ describe 'routism'
     router = table.compile()
     (router) should recognise '/foo' as { route = 'foo', params = [] }
     (router) should recognise '/bar/zz' as { route = 'bar', params = [['baz', 'zz']] }
+
+  it 'can compile a single patten to regex'
+    restring = routism.compilePattern('/people/:name')
+    re = new (RegExp "^#(restring)$")
+    re.test '/people/james'.should.be.true
+    re.test '/people/jane'.should.be.true
+    re.test '/people'.should.be.false
+    re.test '/people/harry/friends'.should.be.false
+    re.test '/no/people/jane'.should.be.false

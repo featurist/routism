@@ -45,6 +45,9 @@ compile (pattern) =
   .replace (splat variable regex, "(.+)") \
   .replace (variable regex, "([^\/]+)")
 
+exports.compile pattern (pattern) =
+  compile (pattern)
+
 recognise (match) in (groups) =
   g = 0
   for (i = 2, i < match.length, i := i + groups.(g - 1).params.length + 1)

@@ -63,6 +63,10 @@
     compile = function(pattern) {
         return escapeRegex(pattern).replace(splatVariableRegex, "(.+)").replace(variableRegex, "([^\\/]+)");
     };
+    exports.compilePattern = function(pattern) {
+        var self = this;
+        return compile(pattern);
+    };
     recogniseIn = function(match, groups) {
         var g, i, gen3_forResult;
         g = 0;
