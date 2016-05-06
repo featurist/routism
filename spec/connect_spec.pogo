@@ -30,15 +30,15 @@ describe 'routism, wired up to connect'
     connectRouter = connectify(compiledRoutes)
     app = connect()
     app.use (connectRouter)
-    app.listen 80012
+    app.listen 8012
       done()
 
   it 'responds to requests' @(done)
-    request 'http://127.0.0.1:80012/hello/world' @(err, res, body)
+    request 'http://127.0.0.1:8012/hello/world' @(err, res, body)
       body.should.equal 'hello'
       done()
 
   it 'sets request params' @(done)
-    request 'http://127.0.0.1:80012/params/blah' @(err, res, body)
+    request 'http://127.0.0.1:8012/params/blah' @(err, res, body)
       body.should.equal 'blah'
       done()
